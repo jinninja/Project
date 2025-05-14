@@ -6,22 +6,20 @@ window.addEventListener('DOMContentLoaded', async () => {
     const linkInput = document.getElementById('link-input');
     const saveLinkButton = document.getElementById('save-link');
 
-    // Асинхронная загрузка JSON файла
     const response = await fetch('calendar.json');
     const data = await response.json();
 
-    // Обработчик смены месяца
+
     select.addEventListener('change', () => {
         const selectedMonth = select.value;
         if (selectedMonth !== '') {
             const monthData = data.months.find(m => m.month === selectedMonth);
             renderMonth(monthData);
         } else {
-            outputContainer.innerHTML = ''; // Очищаем контейнер, если ничего не выбрано
+            outputContainer.innerHTML = ''; 
         }
     });
 
-    // Изначально покажем январь
     const januaryData = data.months.find(m => m.month === 'Январь');
     renderMonth(januaryData);
 
@@ -37,11 +35,9 @@ window.addEventListener('DOMContentLoaded', async () => {
             //let s = event;
             document.getElementById("mytext").textContent +=`${event}`;
             
-            // Показываем форму для ввода ссылки
             linkForm.style.display = 'block';
             linkInput.value = '';
 
-            // Сохраняем выбранную дату
             saveLinkButton.addEventListener('click', () => {
                 const link = linkInput.value;
                 if (link) {
@@ -53,42 +49,36 @@ window.addEventListener('DOMContentLoaded', async () => {
     });
 });
 
-// Рендеринг календаря конкретного месяца
 function renderMonth(monthData) {
     const outputContainer = document.getElementById('calendar-output');
-    outputContainer.innerHTML = ''; // очищаем предыдущую версию календаря
+    outputContainer.innerHTML = ''; 
 
     const monthHeader = `<h2>${monthData.month}</h2>`;
     outputContainer.innerHTML += monthHeader;
 
-    // Создание таблицы
     const tableHtml = generateMonthTable(monthData);
     outputContainer.innerHTML += tableHtml;
 }
 
-// Генерация таблицы конкретного месяца
 function generateMonthTable(monthData) {
     const totalDays = new Date(`${monthData.month}, 2025`).getLastDayOfMonth();
-    const firstDay = new Date(`2025-${monthToNumber(monthData.month)}-01`).getDay(); // Здесь возвращаемся к стандартной схеме расчета дня недели
+    const firstDay = new Date(`2025-${monthToNumber(monthData.month)}-01`).getDay();
 
-    // Шаблон для календаря
     let table = '<table>';
     table += '<thead><tr>' +
-              '<th>Пон.</th>' +
+              '<th>Пн.</th>' +
               '<th>Вт.</th>' +
-              '<th>Срд.</th>' +
-              '<th>Чтв.</th>' +
-              '<th>Птн.</th>' +
-              '<th>Суб.</th>' +
-              '<th>Вос.</th></tr></thead>';
+              '<th>Ср.</th>' +
+              '<th>Чт.</th>' +
+              '<th>Пн.</th>' +
+              '<th>Сб.</th>' +
+              '<th>Вс.</th></tr></thead>';
 
     table += '<tbody>';
 
-    // Массив рабочих дней и праздников
     const workDays = monthData.days.split(',');
     const holidays = monthData.holidays.split(',');
 
-    // Начало заполнения календаря
     let currentDay = 1;
     let weekNum = 0;
 
@@ -106,7 +96,7 @@ function generateMonthTable(monthData) {
                 let classes = '';
                 if (isHoliday) classes += 'holiday ';
                 if (isWorkDay) classes += 'work-day ';
-                if ([5, 6].includes(i)) classes += 'weekend '; // Суббота и воскресенье считаются выходными!
+                if ([5, 6].includes(i)) classes += 'weekend ';
 
                 table += `<td class="${classes.trim()}">${currentDay}</td>`;
                 currentDay++;
@@ -120,7 +110,6 @@ function generateMonthTable(monthData) {
     return table;
 }
 
-// Преобразование имени месяца в числовой эквивалент
 const monthToNumber = (monthName) => {
     switch (monthName.toLowerCase()) {
         case 'январь': return '01'; break;
@@ -139,7 +128,6 @@ const monthToNumber = (monthName) => {
     }
 };
 
-// Расширяем объект Date методом для определения последнего дня месяца
 Date.prototype.getLastDayOfMonth = function() {
     return new Date(this.getFullYear(), this.getMonth()+1, 0).getDate();
 };
