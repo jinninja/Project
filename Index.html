@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Производственный календарь на 2025 год</title>
+    <style>
+        /* Основные стили */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        select {
+            margin-bottom: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        thead {
+            background-color: #ddd;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+        td, th {
+            padding: 8px;
+            text-align: center;
+            vertical-align: middle;
+            border: 1px solid #ccc;
+        }
+        .holiday {
+        
+        }
+        .work-day {
+          
+        }
+        .weekend {
+            background-color: skyblue;
+            color: darkblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Производственный календарь на 2025 год</h1>
+        <select id="month-select">
+            <option value="">Выберите месяц...</option>
+            <option value="Январь">Январь</option>
+            <option value="Февраль">Февраль</option>
+            <option value="Март">Март</option>
+            <option value="Апрель">Апрель</option>
+            <option value="Май">Май</option>
+            <option value="Июнь">Июнь</option>
+            <option value="Июль">Июль</option>
+            <option value="Август">Август</option>
+            <option value="Сентябрь">Сентябрь</option>
+            <option value="Октябрь">Октябрь</option>
+            <option value="Ноябрь">Ноябрь</option>
+            <option value="Декабрь">Декабрь</option>
+        </select>
+        <div id="calendar-output"></div>
+        <form id="link-form" style="display: none;">
+            <input type="text" id="link-input" placeholder="Введите ссылку">
+            <button type="button" id="save-link">Сохранить</button>
+            <textarea id="mytext"></textarea>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
