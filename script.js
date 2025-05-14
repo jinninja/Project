@@ -24,6 +24,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     // Изначально покажем январь
     const januaryData = data.months.find(m => m.month === 'Январь');
     renderMonth(januaryData);
+
     outputContainer.addEventListener('click', (event) => {
         if (event.target.tagName === 'TD') {
             const day = event.target.textContent;
@@ -31,6 +32,11 @@ window.addEventListener('DOMContentLoaded', async () => {
             const year = '2025';
             const date = `${year}-${monthToNumber(month)}-${day}`;
 
+            linkForm.style.display = 'block';
+
+            //let s = event;
+            document.getElementById("mytext").textContent +=`${event}`;
+            
             // Показываем форму для ввода ссылки
             linkForm.style.display = 'block';
             linkInput.value = '';
@@ -39,11 +45,10 @@ window.addEventListener('DOMContentLoaded', async () => {
             saveLinkButton.addEventListener('click', () => {
                 const link = linkInput.value;
                 if (link) {
-                    event.target.innerHTML = `<a href="${link}" target="_blank" class="link">${day}</a>`;
+                    const textUrl = event.target.innerHTML = `<a href="${link}" target="_blank" class="link">${day}</a>`;
                     linkForm.style.display = 'none';
                 }
             });
-            document.getElementById("mytext").value = event;
         }
     });
 });
